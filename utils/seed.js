@@ -34,9 +34,9 @@ connection.once('open', async () => {
     });
   }
 
-
-  // Add students to the collection and await the results
+  // Add thoght to the collection and await the results
   const thoughtData = await Thought.create(thoughtArray);
+
 
   // Add user to the collection and await the results
   await User.create({
@@ -45,7 +45,7 @@ connection.once('open', async () => {
     thoughts: [...thoughtData.map(({_id}) => _id)],
   });
 
-  // Log out the seed data to indicate what should appear in the database
+  // Render table of thoughts
   console.table(thoughtArray);
   console.info('Seeding complete! 🌱');
   process.exit(0);

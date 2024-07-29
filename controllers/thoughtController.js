@@ -3,7 +3,8 @@ const { Thought, User } = require('../models');
 
 
 module.exports = {
-  // Get all thought
+
+// Get all thought
   async getThoughts(req, res) {
     try {
       const thoughts = await Thought.find();
@@ -17,7 +18,7 @@ module.exports = {
     }
   },
 
-  // Get a single thought
+// Get a single thought
   async getSingleThought(req, res) {
     try {
       const thought = await Thought.findOne({ _id: req.params.thoughtId })
@@ -35,7 +36,7 @@ module.exports = {
     }
   },
 
-  // create a thought
+// create a thought
   async createThought(req, res) {
     try {
       const thought = await Thought.create(req.body);
@@ -45,15 +46,13 @@ module.exports = {
     }
   },
 
-  // create a thought for an existing user
-
-async createUserThought(req, res) {
+// create a thought for an existing user
+  async createUserThought(req, res) {
       try {
-          console.log('hello mundo');
           const user = await User.findById(req.params.userId);
             if (user) {
-                console.log('Usuario encontrado');
-                // Crear un nuevo documento de pensamiento
+                console.log('User found');
+                // Create a new thought 
                 const newThought = new Thought({
                     thoughtText: req.body.thoughtText,
                     username: req.body.username,
@@ -73,9 +72,9 @@ async createUserThought(req, res) {
         } catch (err) {
                  res.status(500).json(err);
                  }
-},
+  },
             
-  // Delete a thought and remove them from the user
+// Delete a thought and remove them from the user
   async deleteThought(req, res) {
     try {
       const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
@@ -101,11 +100,8 @@ async createUserThought(req, res) {
     }
   },
 
-  // Add an reaction to a Thought
+// Add an reaction to a Thought
   async addReaction(req, res) {
-    // console.log('You are adding a reaction');
-    // console.log(req.body);
-
     try {
       const thought = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
@@ -125,26 +121,24 @@ async createUserThought(req, res) {
     }
   },
 
-  // Remove a reaction  from a thought
+// Remove a reaction  from a thought
   async removeReaction(req, res) {
-    try {
-        console.log('Entrando a borrar');
-        console.log(req.params);
+    try { 
+        // console.log(req.params);
       const thought = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
         { $pull: { reactions: { reactionId: req.params.reactionId } } },
         { runValidators: true, new: true }
-      );
-
+        );
       if (!thought) {
         return res
           .status(404)
           .json({ message: 'No thought found' });
-      }
-
+        }
       res.json(thought);
-    } catch (err) {
-      res.status(500).json(err);
-    }
+        } catch (err) {
+          res.status(500).json(err);
+        }
   },
+  
 };
