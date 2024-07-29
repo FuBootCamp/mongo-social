@@ -5,7 +5,6 @@ module.exports = {
   // Get all user with friends
   async getUser(req, res) {
     try {
-      console.log('hola mundo');
       const users = await User.find().populate('friends');
       res.json(users);
     } catch (err) {
@@ -51,6 +50,7 @@ module.exports = {
               res.json(user);
           } else {
               console.log('User not found');
+              res.json(user);
           }
       } catch (err) {
                res.status(500).json(err);
@@ -61,7 +61,6 @@ module.exports = {
     async deleteFriend(req, res) {
         try {
             console.log('Delete in progress');
-            console.log(req.params);
           const user = await User.findOneAndUpdate(
             { _id: req.params.userId },
             { $pull: { friends: req.params.friendId } },
