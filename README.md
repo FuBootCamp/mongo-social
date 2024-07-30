@@ -71,11 +71,27 @@ The insomna menu CRUD's
 
 Not applicable
 
+
 <a id="test-section"></a>
 ## Test instructions
 
-Link for the walkthrough
+Link for the walkthrough video
 https://drive.google.com/file/d/1E8xac5n11A_f57DGwTPPV0E94Y8esxpf/view
+
+Start with the empty socialDB database.
+Three users are created.
+Copy the _id of the first user (user1) to use it in the other requirements. Update of a user is tested by changing the original email address.
+After each change all users are displayed to verify on screen the changes.
+Test the GET of a single user (user1).
+A friend (user4) is created for user1.
+The GET of a user's friends and users including friends is tested.
+A GET of thoughts is made and is shown empty.
+A thought is created for user1.
+The _id of the thought is copied for use in the other requirements.
+A reaction is created for the newly created thought.
+GET all users and you can see user1 with a thought which in turn has a reaction, and with a friend.
+All DELETE (reaction, thought, friend and user) are tested.
+At the end all the users are shown and user1 is no longer there.
 
 <a id="questions-section"></a>
 ## Questions
